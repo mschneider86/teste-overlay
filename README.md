@@ -1,27 +1,59 @@
-# TesteOverlay
+# Teste Overlay - Sistema de Tramitações
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
+Projeto Angular desenvolvido para demonstrar um sistema de overlay persistente para tramitações de processos.
 
-## Development server
+## Funcionalidades
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Overlay Persistente**: O overlay de tramitações permanece aberto e preserva os dados do formulário durante a navegação entre as abas do sistema
+- **Gerenciamento de Estado**: Utiliza serviços Angular para manter o estado global do overlay
+- **Interface Responsiva**: Design moderno utilizando Angular Material
+- **Formulário Reativo**: Validação e controle de dados usando Reactive Forms
 
-## Code scaffolding
+## Tecnologias Utilizadas
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular 15+
+- Angular Material
+- TypeScript
+- RxJS
+- CSS3
 
-## Build
+## Como Executar
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone o repositório
+2. Instale as dependências: `npm install`
+3. Execute o projeto: `ng serve`
+4. Acesse `http://localhost:4200`
 
-## Running unit tests
+## Funcionalidade Principal
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+O sistema permite:
 
-## Running end-to-end tests
+1. **Abrir Overlay**: Clique no botão "Adicionar Tramitações" para abrir o overlay
+2. **Persistência de Dados**: Navegue entre as abas "Dados Gerais" e "Partes Envolvidas" - o overlay permanece aberto com os dados preservados
+3. **Gerenciamento de Formulário**: 
+   - Preencha os campos do formulário
+   - Os dados são automaticamente salvos durante a navegação
+   - Use o botão "Limpar" para resetar o formulário
+   - Use "Salvar" para confirmar a tramitação
+   - Use "Cancelar" para fechar sem salvar
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Arquitetura
 
-## Further help
+O projeto utiliza uma arquitetura baseada em:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- **OverlayService**: Gerencia o estado global do overlay usando BehaviorSubject
+- **GlobalOverlayComponent**: Componente wrapper que renderiza o overlay em qualquer lugar da aplicação
+- **TramitacaoOverlayComponent**: Componente específico do formulário de tramitações
+- **Comunicação Reativa**: Uso de Observables para comunicação entre componentes
+
+## Demonstração
+
+Este projeto demonstra como implementar um overlay persistente que:
+- Mantém estado durante navegação SPA
+- Preserva dados de formulário
+- Utiliza padrões modernos do Angular
+- Implementa uma UX fluida e intuitiva
+
+---
+
+**Desenvolvido para demonstração de conceitos avançados de Angular e gerenciamento de estado.**
