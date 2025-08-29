@@ -11,13 +11,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { OverlayComponent } from './overlay/overlay.component';
 import { GlobalOverlayComponent } from './components/global-overlay/global-overlay.component';
 import { TramitacaoOverlayComponent } from './components/tramitacao-overlay/tramitacao-overlay.component';
-import { OverlayService } from './services/overlay.service';
 
 @NgModule({
   declarations: [
     OverlayComponent,
     GlobalOverlayComponent,
-    TramitacaoOverlayComponent
+    TramitacaoOverlayComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +28,7 @@ import { OverlayService } from './services/overlay.service';
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   exports: [
     OverlayComponent,
@@ -43,7 +42,7 @@ import { OverlayService } from './services/overlay.service';
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
-  ]
+    MatNativeDateModule,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

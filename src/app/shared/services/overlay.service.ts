@@ -10,17 +10,17 @@ export interface OverlayState {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OverlayService {
-  private overlayState$ = new BehaviorSubject<OverlayState>({
+  private readonly overlayState$ = new BehaviorSubject<OverlayState>({
     isVisible: false,
-    type: null
+    type: null,
   });
 
-  private tramitacoes$ = new BehaviorSubject<Tramitacao[]>([]);
+  private readonly tramitacoes$ = new BehaviorSubject<Tramitacao[]>([]);
 
-  constructor() { }
+  constructor() {}
 
   // Observables públicos
   getOverlayState(): Observable<OverlayState> {
@@ -37,7 +37,7 @@ export class OverlayService {
     this.overlayState$.next({
       isVisible: true,
       type: 'tramitacao',
-      formData: currentState.formData // Preserva os dados do formulário
+      formData: currentState.formData, // Preserva os dados do formulário
     });
   }
 
@@ -46,7 +46,7 @@ export class OverlayService {
     this.overlayState$.next({
       isVisible: false,
       type: null,
-      formData: currentState.formData // Preserva os dados do formulário mesmo quando fechado
+      formData: currentState.formData, // Preserva os dados do formulário mesmo quando fechado
     });
   }
 
@@ -55,7 +55,7 @@ export class OverlayService {
     const currentState = this.overlayState$.value;
     this.overlayState$.next({
       ...currentState,
-      formData: formData
+      formData: formData,
     });
   }
 
@@ -64,7 +64,7 @@ export class OverlayService {
     const currentState = this.overlayState$.value;
     this.overlayState$.next({
       ...currentState,
-      formData: null
+      formData: null,
     });
   }
 

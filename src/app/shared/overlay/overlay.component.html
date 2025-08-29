@@ -1,11 +1,17 @@
 <div class="overlay-backdrop" 
      [@overlayAnimation] 
-     (click)="onBackdropClick($event)">
+     (click)="onBackdropClick($event)"
+     (keypress)="onKeyPress($event)"
+     (keydown)="onKeyDown($event)"
+     (keyup)="onKeyUp($event)">
   
   <div class="overlay-content" 
        #overlayContent
        [@contentAnimation]
        (click)="onContentClick($event)"
+       (keypress)="onKeyPress($event)"
+       (keydown)="onKeyDown($event)"
+       (keyup)="onKeyUp($event)"
        [style.max-width]="maxWidth"
        [style.max-height]="maxHeight"
        [class.draggable]="draggable">

@@ -1,5 +1,11 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { OverlayService } from '../../services/overlay.service';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -15,7 +21,7 @@ export interface Tramitacao {
 @Component({
   selector: 'app-tramitacao-overlay',
   templateUrl: './tramitacao-overlay.component.html',
-  styleUrls: ['./tramitacao-overlay.component.css']
+  styleUrls: ['./tramitacao-overlay.component.css'],
 })
 export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
   @Output() onClose = new EventEmitter<void>();
@@ -23,7 +29,7 @@ export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
 
   tramitacaoForm: FormGroup;
   isSubmitting = false;
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   tiposMovimentacao = [
     { value: 'audiencia', label: 'Audiência' },
     { value: 'sentenca', label: 'Sentença' },
@@ -32,34 +38,35 @@ export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
     { value: 'recurso', label: 'Recurso' },
     { value: 'intimacao', label: 'Intimação' },
     { value: 'juntada', label: 'Juntada de Documento' },
-    { value: 'outros', label: 'Outros' }
+    { value: 'outros', label: 'Outros' },
   ];
 
   constructor(
-    private formBuilder: FormBuilder,
-    private overlayService: OverlayService
+    private readonly formBuilder: FormBuilder,
+    private readonly overlayService: OverlayService
   ) {
     this.tramitacaoForm = this.formBuilder.group({
       data: [''],
       tipo: [''],
       descricao: [''],
       responsavel: [''],
-      observacoes: ['']
+      observacoes: [''],
     });
   }
 
   ngOnInit(): void {
     // Subscreve ao estado do overlay para restaurar dados do formulário
-    this.overlayService.getOverlayState()
+    this.overlayService
+      .getOverlayState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(state => {
+      .subscribe((state) => {
         if (state.formData) {
           // Restaura os dados salvos do formulário
           this.tramitacaoForm.patchValue(state.formData);
         } else {
           // Define a data atual como padrão apenas se não há dados salvos
           this.tramitacaoForm.patchValue({
-            data: new Date()
+            data: new Date(),
           });
         }
       });
@@ -67,7 +74,7 @@ export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
     // Salva os dados do formulário sempre que houver mudanças
     this.tramitacaoForm.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe(formData => {
+      .subscribe((formData) => {
         this.overlayService.saveFormData(formData);
       });
   }
@@ -80,14 +87,14 @@ export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     if (this.tramitacaoForm.valid && !this.isSubmitting) {
       this.isSubmitting = true;
-      
+
       const tramitacao: Tramitacao = {
         id: this.generateId(),
         data: this.tramitacaoForm.value.data,
         tipo: this.tramitacaoForm.value.tipo,
         descricao: this.tramitacaoForm.value.descricao,
         responsavel: this.tramitacaoForm.value.responsavel,
-        observacoes: this.tramitacaoForm.value.observacoes
+        observacoes: this.tramitacaoForm.value.observacoes,
       };
 
       // Simula um pequeno delay para melhor UX
@@ -110,16 +117,16 @@ export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
     this.overlayService.clearFormData();
     this.tramitacaoForm.reset();
     this.tramitacaoForm.patchValue({
-      data: new Date()
+      data: new Date(),
     });
   }
 
   private generateId(): string {
-    return Date.now().toString() + Math.random().toString(36).substr(2, 9);
+    return Date.now().toString() + Math.random().toString(36).substring(2, 9);
   }
 
   private markFormGroupTouched(): void {
-    Object.keys(this.tramitacaoForm.controls).forEach(key => {
+    Object.keys(this.tramitacaoForm.controls).forEach((key) => {
       const control = this.tramitacaoForm.get(key);
       if (control) {
         control.markAsTouched();
@@ -134,7 +141,9 @@ export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
     }
     if (control?.hasError('minlength')) {
       const minLength = control.errors?.['minlength']?.requiredLength;
-      return `${this.getFieldLabel(fieldName)} deve ter pelo menos ${minLength} caracteres`;
+      return `${this.getFieldLabel(
+        fieldName
+      )} deve ter pelo menos ${minLength} caracteres`;
     }
     return '';
   }
@@ -144,7 +153,7 @@ export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
       data: 'Data da Tramitação',
       tipo: 'Tipo de Movimentação',
       descricao: 'Descrição',
-      responsavel: 'Responsável'
+      responsavel: 'Responsável',
     };
     return labels[fieldName] || fieldName;
   }

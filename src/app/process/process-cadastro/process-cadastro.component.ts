@@ -6,15 +6,13 @@ import { Tramitacao } from '../../shared/components/tramitacao-overlay/tramitaca
 @Component({
   selector: 'app-process-cadastro',
   templateUrl: './process-cadastro.component.html',
-  styleUrls: ['./process-cadastro.component.css']
+  styleUrls: ['./process-cadastro.component.css'],
 })
 export class ProcessCadastroComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   tramitacoes: Tramitacao[] = [];
 
-  constructor(
-    private overlayService: OverlayService
-  ) { }
+  constructor(private readonly overlayService: OverlayService) {}
 
   ngOnInit(): void {
     this.subscribeToTramitacoes();
@@ -26,9 +24,10 @@ export class ProcessCadastroComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToTramitacoes(): void {
-    this.overlayService.getTramitacoes()
+    this.overlayService
+      .getTramitacoes()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(tramitacoes => {
+      .subscribe((tramitacoes) => {
         this.tramitacoes = tramitacoes;
       });
   }

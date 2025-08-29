@@ -5,7 +5,7 @@ import { Tramitacao } from '../../shared/components/tramitacao-overlay/tramitaca
 @Component({
   selector: 'app-tramitacao-overlay',
   templateUrl: './tramitacao-overlay.component.html',
-  styleUrls: ['./tramitacao-overlay.component.css']
+  styleUrls: ['./tramitacao-overlay.component.css'],
 })
 export class TramitacaoOverlayComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
@@ -21,37 +21,37 @@ export class TramitacaoOverlayComponent implements OnInit {
     { value: 'recurso', label: 'Recurso' },
     { value: 'intimacao', label: 'Intimação' },
     { value: 'juntada', label: 'Juntada de Documento' },
-    { value: 'outros', label: 'Outros' }
+    { value: 'outros', label: 'Outros' },
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private readonly formBuilder: FormBuilder) {
     this.tramitacaoForm = this.formBuilder.group({
       data: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       descricao: ['', [Validators.required, Validators.minLength(10)]],
       responsavel: ['', [Validators.required]],
-      observacoes: ['']
+      observacoes: [''],
     });
   }
 
   ngOnInit(): void {
     // Define a data atual como padrão
     this.tramitacaoForm.patchValue({
-      data: new Date()
+      data: new Date(),
     });
   }
 
   onSubmit(): void {
     if (this.tramitacaoForm.valid && !this.isSubmitting) {
       this.isSubmitting = true;
-      
+
       const tramitacao: Tramitacao = {
         id: this.generateId(),
         data: this.tramitacaoForm.value.data,
         tipo: this.tramitacaoForm.value.tipo,
         descricao: this.tramitacaoForm.value.descricao,
         responsavel: this.tramitacaoForm.value.responsavel,
-        observacoes: this.tramitacaoForm.value.observacoes
+        observacoes: this.tramitacaoForm.value.observacoes,
       };
 
       // Simula um pequeno delay para melhor UX
@@ -73,7 +73,7 @@ export class TramitacaoOverlayComponent implements OnInit {
   }
 
   private markFormGroupTouched(): void {
-    Object.keys(this.tramitacaoForm.controls).forEach(key => {
+    Object.keys(this.tramitacaoForm.controls).forEach((key) => {
       const control = this.tramitacaoForm.get(key);
       if (control) {
         control.markAsTouched();
@@ -88,7 +88,9 @@ export class TramitacaoOverlayComponent implements OnInit {
     }
     if (control?.hasError('minlength')) {
       const minLength = control.errors?.['minlength']?.requiredLength;
-      return `${this.getFieldLabel(fieldName)} deve ter pelo menos ${minLength} caracteres`;
+      return `${this.getFieldLabel(
+        fieldName
+      )} deve ter pelo menos ${minLength} caracteres`;
     }
     return '';
   }
@@ -98,7 +100,7 @@ export class TramitacaoOverlayComponent implements OnInit {
       data: 'Data da Tramitação',
       tipo: 'Tipo de Movimentação',
       descricao: 'Descrição',
-      responsavel: 'Responsável'
+      responsavel: 'Responsável',
     };
     return labels[fieldName] || fieldName;
   }

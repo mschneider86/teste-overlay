@@ -6,18 +6,19 @@ import { Tramitacao } from '../tramitacao-overlay/tramitacao-overlay.component';
 @Component({
   selector: 'app-global-overlay',
   templateUrl: './global-overlay.component.html',
-  styleUrls: ['./global-overlay.component.css']
+  styleUrls: ['./global-overlay.component.css'],
 })
 export class GlobalOverlayComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   overlayState: OverlayState = { isVisible: false, type: null };
 
-  constructor(private overlayService: OverlayService) { }
+  constructor(private readonly overlayService: OverlayService) {}
 
   ngOnInit(): void {
-    this.overlayService.getOverlayState()
+    this.overlayService
+      .getOverlayState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(state => {
+      .subscribe((state) => {
         this.overlayState = state;
       });
   }
