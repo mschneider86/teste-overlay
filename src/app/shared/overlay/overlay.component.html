@@ -1,0 +1,37 @@
+<div class="overlay-backdrop" 
+     [@overlayAnimation] 
+     (click)="onBackdropClick($event)">
+  
+  <div class="overlay-content" 
+       #overlayContent
+       [@contentAnimation]
+       (click)="onContentClick($event)"
+       [style.max-width]="maxWidth"
+       [style.max-height]="maxHeight"
+       [class.draggable]="draggable">
+    
+    <!-- Header do Overlay -->
+    <div class="overlay-header" 
+         *ngIf="title || showCloseButton"
+         [class.drag-handle]="draggable"
+         (mousedown)="onHeaderMouseDown($event)">
+      <h2 class="overlay-title" *ngIf="title">{{ title }}</h2>
+      <div class="header-actions">
+        <mat-icon class="drag-icon" *ngIf="draggable">drag_indicator</mat-icon>
+        <button mat-icon-button 
+                class="close-button" 
+                (click)="close()"
+                *ngIf="showCloseButton"
+                aria-label="Fechar">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Conteúdo do Overlay -->
+    <div class="overlay-body">
+      <ng-content></ng-content>
+    </div>
+    
+  </div>
+</div>

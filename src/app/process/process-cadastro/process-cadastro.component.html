@@ -1,0 +1,18 @@
+<div class="process-cadastro-container">
+  <mat-toolbar color="primary">
+    <span>Cadastro de Processos</span>
+    <span class="spacer"></span>
+    <button 
+      mat-raised-button 
+      color="accent" 
+      (click)="openTramitacaoOverlay()"
+      class="tramitacao-btn">
+      <mat-icon>add</mat-icon>
+      Adicionar Tramitações
+    </button>
+  </mat-toolbar>
+
+  <div class="content">
+    <app-process-tabs></app-process-tabs>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div *ngIf="overlayState.isVisible">
+  <app-tramitacao-overlay
+    *ngIf="overlayState.type === 'tramitacao'"
+    (onClose)="onTramitacaoClose()"
+    (onSave)="onTramitacaoSave($event)">
+  </app-tramitacao-overlay>
+</div>

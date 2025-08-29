@@ -1,0 +1,41 @@
+.process-cadastro-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+mat-toolbar button {
+  margin-left: 10px;
+}
+
+mat-toolbar mat-icon {
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 10px;
+  }
+  
+  mat-toolbar span:first-child {
+    font-size: 16px;
+  }
+  
+  mat-toolbar button {
+    padding: 0 12px;
+  }
+}

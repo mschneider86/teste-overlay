@@ -1,0 +1,142 @@
+<mat-tab-group animationDuration="300ms" class="process-tabs">
+  <!-- Aba 1: Dados Gerais -->
+  <mat-tab label="Dados Gerais">
+    <div class="tab-content">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Informações do Processo</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Número do Processo</mat-label>
+              <input matInput placeholder="Ex: 1234567-89.2023.8.26.0001">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Tipo de Processo</mat-label>
+              <mat-select>
+                <mat-option value="civil">Civil</mat-option>
+                <mat-option value="criminal">Criminal</mat-option>
+                <mat-option value="trabalhista">Trabalhista</mat-option>
+                <mat-option value="administrativo">Administrativo</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Data de Abertura</mat-label>
+              <input matInput [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Status</mat-label>
+              <mat-select>
+                <mat-option value="ativo">Ativo</mat-option>
+                <mat-option value="suspenso">Suspenso</mat-option>
+                <mat-option value="arquivado">Arquivado</mat-option>
+                <mat-option value="finalizado">Finalizado</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <!-- Aba 2: Partes Envolvidas -->
+  <mat-tab label="Partes Envolvidas">
+    <div class="tab-content">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Partes do Processo</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Autor</mat-label>
+              <input matInput placeholder="Nome do autor">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Réu</mat-label>
+              <input matInput placeholder="Nome do réu">
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Advogado</mat-label>
+              <input matInput placeholder="Nome do advogado">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Representante Legal</mat-label>
+              <input matInput placeholder="Nome do representante">
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <!-- Aba 3: Movimentações e Andamentos -->
+  <mat-tab label="Movimentações e Andamentos">
+    <div class="tab-content">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Lista de Tramitações</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="tramitacoes-list" *ngIf="(tramitacoes$ | async)?.length; else noTramitacoes">
+            <div class="tramitacao-item" *ngFor="let tramitacao of (tramitacoes$ | async)">
+              <div class="tramitacao-header">
+                <span class="tramitacao-tipo">{{ tramitacao.tipo }}</span>
+                <span class="tramitacao-data">{{ tramitacao.data | date:'dd/MM/yyyy' }}</span>
+              </div>
+              <div class="tramitacao-content">
+                <p><strong>Responsável:</strong> {{ tramitacao.responsavel }}</p>
+                <p><strong>Descrição:</strong> {{ tramitacao.descricao }}</p>
+                <p *ngIf="tramitacao.observacoes"><strong>Observações:</strong> {{ tramitacao.observacoes }}</p>
+              </div>
+            </div>
+          </div>
+          <ng-template #noTramitacoes>
+            <div class="no-tramitacoes">
+              <mat-icon>info</mat-icon>
+              <p>Nenhuma tramitação cadastrada. Clique em "Adicionar Tramitação" para começar.</p>
+            </div>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <!-- Aba 4: Observações e Notas Internas -->
+  <mat-tab label="Observações e Notas">
+    <div class="tab-content">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Notas e Comentários</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Notas</mat-label>
+              <textarea matInput rows="4" placeholder="Adicione suas notas aqui..."></textarea>
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Comentários Internos</mat-label>
+              <textarea matInput rows="4" placeholder="Comentários para uso interno..."></textarea>
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Tags</mat-label>
+              <input matInput placeholder="Ex: urgente, revisão, pendente">
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+</mat-tab-group>

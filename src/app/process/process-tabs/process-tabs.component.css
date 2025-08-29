@@ -1,0 +1,123 @@
+.process-tabs {
+  height: 100%;
+}
+
+.tab-content {
+  padding: 20px;
+  min-height: 400px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-row mat-form-field {
+  flex: 1;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Estilos para lista de tramitações */
+.tramitacoes-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.tramitacao-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 16px;
+  background-color: #fafafa;
+  transition: box-shadow 0.2s ease;
+}
+
+.tramitacao-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.tramitacao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tramitacao-tipo {
+  font-weight: 600;
+  color: #1976d2;
+  font-size: 14px;
+}
+
+.tramitacao-data {
+  color: #666;
+  font-size: 12px;
+}
+
+.tramitacao-content p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.tramitacao-content strong {
+  color: #333;
+}
+
+/* Estado vazio */
+.no-tramitacoes {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.no-tramitacoes mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: #ccc;
+}
+
+.no-tramitacoes p {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .tab-content {
+    padding: 10px;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .tramitacao-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .tramitacao-item {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab-content {
+    padding: 8px;
+  }
+  
+  .tramitacao-content p {
+    font-size: 13px;
+  }
+}

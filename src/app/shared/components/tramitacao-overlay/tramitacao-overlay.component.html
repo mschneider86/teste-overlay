@@ -1,0 +1,114 @@
+<app-overlay 
+  title="Adicionar Tramitação"
+  [showCloseButton]="true"
+  [closeOnBackdropClick]="true"
+  [draggable]="true"
+  maxWidth="700px"
+  (onClose)="onCancel()">
+  
+  <form [formGroup]="tramitacaoForm" (ngSubmit)="onSubmit()" class="tramitacao-form">
+    
+    <!-- Primeira linha: Data e Tipo -->
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Data da Tramitação</mat-label>
+        <input matInput 
+               [matDatepicker]="picker" 
+               formControlName="data"
+               [class.is-invalid]="tramitacaoForm.get('data')?.invalid && tramitacaoForm.get('data')?.touched">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="tramitacaoForm.get('data')?.invalid && tramitacaoForm.get('data')?.touched">
+          {{ getErrorMessage('data') }}
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de Movimentação</mat-label>
+        <mat-select formControlName="tipo"
+                    [class.is-invalid]="tramitacaoForm.get('tipo')?.invalid && tramitacaoForm.get('tipo')?.touched">
+          <mat-option *ngFor="let tipo of tiposMovimentacao" [value]="tipo.value">
+            {{ tipo.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="tramitacaoForm.get('tipo')?.invalid && tramitacaoForm.get('tipo')?.touched">
+          {{ getErrorMessage('tipo') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    
+    <!-- Segunda linha: Responsável -->
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Responsável pela Movimentação</mat-label>
+        <input matInput 
+               formControlName="responsavel"
+               placeholder="Nome do responsável"
+               [class.is-invalid]="tramitacaoForm.get('responsavel')?.invalid && tramitacaoForm.get('responsavel')?.touched">
+        <mat-error *ngIf="tramitacaoForm.get('responsavel')?.invalid && tramitacaoForm.get('responsavel')?.touched">
+          {{ getErrorMessage('responsavel') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    
+    <!-- Terceira linha: Descrição -->
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descrição/Detalhes</mat-label>
+        <textarea matInput 
+                  rows="4"
+                  formControlName="descricao"
+                  placeholder="Descreva os detalhes da tramitação..."
+                  [class.is-invalid]="tramitacaoForm.get('descricao')?.invalid && tramitacaoForm.get('descricao')?.touched">
+        </textarea>
+        <mat-hint>Mínimo de 10 caracteres</mat-hint>
+        <mat-error *ngIf="tramitacaoForm.get('descricao')?.invalid && tramitacaoForm.get('descricao')?.touched">
+          {{ getErrorMessage('descricao') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    
+    <!-- Quarta linha: Observações -->
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Observações Adicionais</mat-label>
+        <textarea matInput 
+                  rows="3"
+                  formControlName="observacoes"
+                  placeholder="Observações opcionais...">
+        </textarea>
+        <mat-hint>Campo opcional</mat-hint>
+      </mat-form-field>
+    </div>
+    
+    <!-- Botões de ação -->
+    <div class="form-actions">
+      <button mat-button 
+              type="button" 
+              (click)="onCancel()"
+              [disabled]="isSubmitting">
+        Cancelar
+      </button>
+      
+      <button mat-button 
+              type="button" 
+              color="warn"
+              (click)="onClearForm()"
+              [disabled]="isSubmitting">
+        <mat-icon>clear</mat-icon>
+        Limpar
+      </button>
+      
+      <button mat-raised-button 
+              color="primary" 
+              type="submit"
+              [disabled]="tramitacaoForm.invalid || isSubmitting">
+        <mat-icon *ngIf="isSubmitting">hourglass_empty</mat-icon>
+        <mat-icon *ngIf="!isSubmitting">save</mat-icon>
+        {{ isSubmitting ? 'Salvando...' : 'Salvar Tramitação' }}
+      </button>
+    </div>
+    
+  </form>
+  
+</app-overlay>
