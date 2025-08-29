@@ -94,6 +94,8 @@ export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.onSave.emit(tramitacao);
         this.isSubmitting = false;
+        // Limpa o formulário após salvar
+        this.tramitacaoForm.reset();
       }, 500);
     } else {
       this.markFormGroupTouched();
