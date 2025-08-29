@@ -14,26 +14,18 @@
         <mat-label>Data da Tramitação</mat-label>
         <input matInput 
                [matDatepicker]="picker" 
-               formControlName="data"
-               [class.is-invalid]="tramitacaoForm.get('data')?.invalid && tramitacaoForm.get('data')?.touched">
+               formControlName="data">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="tramitacaoForm.get('data')?.invalid && tramitacaoForm.get('data')?.touched">
-          {{ getErrorMessage('data') }}
-        </mat-error>
       </mat-form-field>
       
       <mat-form-field appearance="outline">
         <mat-label>Tipo de Movimentação</mat-label>
-        <mat-select formControlName="tipo"
-                    [class.is-invalid]="tramitacaoForm.get('tipo')?.invalid && tramitacaoForm.get('tipo')?.touched">
+        <mat-select formControlName="tipo">
           <mat-option *ngFor="let tipo of tiposMovimentacao" [value]="tipo.value">
             {{ tipo.label }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="tramitacaoForm.get('tipo')?.invalid && tramitacaoForm.get('tipo')?.touched">
-          {{ getErrorMessage('tipo') }}
-        </mat-error>
       </mat-form-field>
     </div>
     
@@ -43,11 +35,7 @@
         <mat-label>Responsável pela Movimentação</mat-label>
         <input matInput 
                formControlName="responsavel"
-               placeholder="Nome do responsável"
-               [class.is-invalid]="tramitacaoForm.get('responsavel')?.invalid && tramitacaoForm.get('responsavel')?.touched">
-        <mat-error *ngIf="tramitacaoForm.get('responsavel')?.invalid && tramitacaoForm.get('responsavel')?.touched">
-          {{ getErrorMessage('responsavel') }}
-        </mat-error>
+               placeholder="Nome do responsável">
       </mat-form-field>
     </div>
     
@@ -58,13 +46,8 @@
         <textarea matInput 
                   rows="4"
                   formControlName="descricao"
-                  placeholder="Descreva os detalhes da tramitação..."
-                  [class.is-invalid]="tramitacaoForm.get('descricao')?.invalid && tramitacaoForm.get('descricao')?.touched">
+                  placeholder="Descreva os detalhes da tramitação...">
         </textarea>
-        <mat-hint>Mínimo de 10 caracteres</mat-hint>
-        <mat-error *ngIf="tramitacaoForm.get('descricao')?.invalid && tramitacaoForm.get('descricao')?.touched">
-          {{ getErrorMessage('descricao') }}
-        </mat-error>
       </mat-form-field>
     </div>
     
@@ -102,7 +85,7 @@
       <button mat-raised-button 
               color="primary" 
               type="submit"
-              [disabled]="tramitacaoForm.invalid || isSubmitting">
+              [disabled]="isSubmitting">
         <mat-icon *ngIf="isSubmitting">hourglass_empty</mat-icon>
         <mat-icon *ngIf="!isSubmitting">save</mat-icon>
         {{ isSubmitting ? 'Salvando...' : 'Salvar Tramitação' }}

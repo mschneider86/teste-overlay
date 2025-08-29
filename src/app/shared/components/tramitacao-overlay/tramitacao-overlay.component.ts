@@ -40,10 +40,10 @@ export class TramitacaoOverlayComponent implements OnInit, OnDestroy {
     private overlayService: OverlayService
   ) {
     this.tramitacaoForm = this.formBuilder.group({
-      data: ['', [Validators.required]],
-      tipo: ['', [Validators.required]],
-      descricao: ['', [Validators.required, Validators.minLength(10)]],
-      responsavel: ['', [Validators.required]],
+      data: [''],
+      tipo: [''],
+      descricao: [''],
+      responsavel: [''],
       observacoes: ['']
     });
   }

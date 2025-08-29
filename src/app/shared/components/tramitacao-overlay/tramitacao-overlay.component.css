@@ -45,6 +45,19 @@
   border-color: #f44336 !important;
 }
 
+/* Correção do z-index para mat-select */
+::ng-deep .cdk-overlay-container {
+  z-index: 10000 !important;
+}
+
+::ng-deep .cdk-overlay-pane {
+  z-index: 10000 !important;
+}
+
+::ng-deep .mat-select-panel {
+  z-index: 10000 !important;
+}
+
 /* Estilos para campos de texto */
 mat-form-field {
   width: 100%;
