@@ -34,8 +34,8 @@ import {
           opacity: 1,
         })
       ),
-      transition('void => *', [animate('300ms ease-in')]),
-      transition('* => void', [animate('200ms ease-out')]),
+      transition('void => *', [animate('300ms ease-out')]),
+      transition('* => void', [animate('200ms ease-in')]),
     ]),
     trigger('contentAnimation', [
       state(
@@ -46,16 +46,28 @@ import {
         })
       ),
       state(
-        '*',
+        'normal',
         style({
           opacity: 1,
           transform: 'scale(1) translateY(0)',
         })
       ),
-      transition('void => *', [
-        animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)'),
+      state(
+        'minimized',
+        style({
+          opacity: 0,
+          transform: 'scale(0.3) translateY(50px)',
+        })
+      ),
+      transition('void => normal', [
+        animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'),
       ]),
-      transition('* => void', [animate('200ms ease-out')]),
+      transition('normal => minimized', [
+        animate('300ms cubic-bezier(0.4, 0.0, 0.2, 1)'),
+      ]),
+      transition('minimized => normal', [
+        animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'),
+      ]),
     ]),
     trigger('floatingAnimation', [
       state(
@@ -153,7 +165,11 @@ export class OverlayComponent implements OnInit {
   }
 
   toggleMinimize(): void {
-    this.isMinimized = !this.isMinimized;
+    if (this.isMinimized) {
+      this.maximize();
+    } else {
+      this.minimize();
+    }
   }
 
   minimize(): void {

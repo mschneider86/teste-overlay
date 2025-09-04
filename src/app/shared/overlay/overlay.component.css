@@ -11,6 +11,7 @@
   z-index: 1000;
   padding: 20px;
   box-sizing: border-box;
+  perspective: 1000px;
 }
 
 .overlay-content {
@@ -25,6 +26,8 @@
   flex-direction: column;
   position: relative;
   transition: box-shadow 0.2s ease;
+  transform-origin: center center;
+  transform-style: preserve-3d;
 }
 
 .overlay-content.draggable {

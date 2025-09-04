@@ -9,7 +9,7 @@
   
   <div class="overlay-content" 
        #overlayContent
-       [@contentAnimation]
+       [@contentAnimation]="isMinimized ? 'minimized' : 'normal'"
        (click)="onContentClick($event)"
        (keypress)="onKeyPress($event)"
        (keydown)="onKeyDown($event)"
