@@ -136,10 +136,11 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  z-index: 9999;
+  z-index: 1001;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   user-select: none;
   max-width: 200px;
+  pointer-events: auto;
 }
 
 .floating-button:hover {
