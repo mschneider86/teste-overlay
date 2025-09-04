@@ -57,6 +57,25 @@ import {
       ]),
       transition('* => void', [animate('200ms ease-out')]),
     ]),
+    trigger('minimizeAnimation', [
+      state(
+        'maximized',
+        style({
+          height: '*',
+          opacity: 1,
+        })
+      ),
+      state(
+        'minimized',
+        style({
+          height: '60px',
+          opacity: 0.9,
+        })
+      ),
+      transition('maximized <=> minimized', [
+        animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)'),
+      ]),
+    ]),
   ],
 })
 export class OverlayComponent implements OnInit {
@@ -66,8 +85,12 @@ export class OverlayComponent implements OnInit {
   @Input() maxWidth: string = '600px';
   @Input() maxHeight: string = '80vh';
   @Input() draggable: boolean = true;
+  @Input() showMinimizeButton: boolean = true;
 
   @Output() onClose = new EventEmitter<void>();
+  
+  // Propriedade para controlar estado minimizado
+  isMinimized: boolean = false;
   @ViewChild('overlayContent', { static: false }) overlayContent!: ElementRef;
 
   // Propriedades para drag and drop
@@ -124,6 +147,18 @@ export class OverlayComponent implements OnInit {
 
   close(): void {
     this.onClose.emit();
+  }
+
+  toggleMinimize(): void {
+    this.isMinimized = !this.isMinimized;
+  }
+
+  minimize(): void {
+    this.isMinimized = true;
+  }
+
+  maximize(): void {
+    this.isMinimized = false;
   }
 
   onContentClick(event: MouseEvent): void {

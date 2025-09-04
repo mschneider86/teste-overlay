@@ -70,14 +70,20 @@
   line-height: 1.2;
 }
 
-.close-button {
+.close-button,
+.minimize-button {
   color: #666;
   transition: color 0.2s ease;
 }
 
-.close-button:hover {
+.close-button:hover,
+.minimize-button:hover {
   color: #333;
   background-color: rgba(0, 0, 0, 0.04);
+}
+
+.minimize-button {
+  margin-right: 4px;
 }
 
 .drag-icon {
@@ -98,6 +104,20 @@
 .overlay-body {
   padding: 24px;
   overflow-y: auto;
+  transition: opacity 0.3s ease;
+}
+
+.overlay-body.hidden {
+  display: none;
+}
+
+.overlay-content.minimized {
+  overflow: hidden;
+}
+
+.overlay-content.minimized .overlay-body {
+  opacity: 0;
+  pointer-events: none;
   flex: 1;
   min-height: 0;
 }

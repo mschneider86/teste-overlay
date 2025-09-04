@@ -8,13 +8,15 @@
   <div class="overlay-content" 
        #overlayContent
        [@contentAnimation]
+       [@minimizeAnimation]="isMinimized ? 'minimized' : 'maximized'"
        (click)="onContentClick($event)"
        (keypress)="onKeyPress($event)"
        (keydown)="onKeyDown($event)"
        (keyup)="onKeyUp($event)"
        [style.max-width]="maxWidth"
        [style.max-height]="maxHeight"
-       [class.draggable]="draggable">
+       [class.draggable]="draggable"
+       [class.minimized]="isMinimized">
     
     <!-- Header do Overlay -->
     <div class="overlay-header" 
@@ -24,6 +26,13 @@
       <h2 class="overlay-title" *ngIf="title">{{ title }}</h2>
       <div class="header-actions">
         <mat-icon class="drag-icon" *ngIf="draggable">drag_indicator</mat-icon>
+        <button mat-icon-button 
+                class="minimize-button" 
+                (click)="toggleMinimize()"
+                *ngIf="showMinimizeButton"
+                [attr.aria-label]="isMinimized ? 'Maximizar' : 'Minimizar'">
+          <mat-icon>{{ isMinimized ? 'expand_more' : 'remove' }}</mat-icon>
+        </button>
         <button mat-icon-button 
                 class="close-button" 
                 (click)="close()"
@@ -35,7 +44,7 @@
     </div>
     
     <!-- Conteúdo do Overlay -->
-    <div class="overlay-body">
+    <div class="overlay-body" [class.hidden]="isMinimized">
       <ng-content></ng-content>
     </div>
     
