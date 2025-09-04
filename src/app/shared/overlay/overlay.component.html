@@ -1,4 +1,6 @@
+<!-- Overlay Normal (não minimizado) -->
 <div class="overlay-backdrop" 
+     *ngIf="!isMinimized"
      [@overlayAnimation] 
      (click)="onBackdropClick($event)"
      (keypress)="onKeyPress($event)"
@@ -8,15 +10,13 @@
   <div class="overlay-content" 
        #overlayContent
        [@contentAnimation]
-       [@minimizeAnimation]="isMinimized ? 'minimized' : 'maximized'"
        (click)="onContentClick($event)"
        (keypress)="onKeyPress($event)"
        (keydown)="onKeyDown($event)"
        (keyup)="onKeyUp($event)"
        [style.max-width]="maxWidth"
        [style.max-height]="maxHeight"
-       [class.draggable]="draggable"
-       [class.minimized]="isMinimized">
+       [class.draggable]="draggable">
     
     <!-- Header do Overlay -->
     <div class="overlay-header" 
@@ -30,8 +30,8 @@
                 class="minimize-button" 
                 (click)="toggleMinimize()"
                 *ngIf="showMinimizeButton"
-                [attr.aria-label]="isMinimized ? 'Maximizar' : 'Minimizar'">
-          <mat-icon>{{ isMinimized ? 'expand_more' : 'remove' }}</mat-icon>
+                aria-label="Minimizar">
+          <mat-icon>remove</mat-icon>
         </button>
         <button mat-icon-button 
                 class="close-button" 
@@ -44,9 +44,19 @@
     </div>
     
     <!-- Conteúdo do Overlay -->
-    <div class="overlay-body" [class.hidden]="isMinimized">
+    <div class="overlay-body">
       <ng-content></ng-content>
     </div>
     
   </div>
+</div>
+
+<!-- Botão Flutuante (minimizado) -->
+<div class="floating-button" 
+     *ngIf="isMinimized"
+     [@floatingAnimation]
+     (click)="toggleMinimize()"
+     [attr.aria-label]="'Reabrir ' + title">
+  <mat-icon>{{ title ? 'description' : 'open_in_new' }}</mat-icon>
+  <span class="floating-title" *ngIf="title">{{ title }}</span>
 </div>
