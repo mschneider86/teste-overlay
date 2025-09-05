@@ -156,7 +156,7 @@ export class OverlayComponent implements OnInit {
 
   onBackdropClick(event: MouseEvent): void {
     if (this.closeOnBackdropClick && event.target === event.currentTarget) {
-      this.close();
+      this.minimize();
     }
   }
 
